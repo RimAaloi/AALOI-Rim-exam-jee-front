@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Gestion des Clients</h2>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <!-- Formulaire d'ajout -->
+  <div class="mb-3">
+    <h3>Ajouter un Client</h3>
+    <input [(ngModel)]="newClient.nom" placeholder="Nom" class="form-control mb-2">
+    <input [(ngModel)]="newClient.email" placeholder="Email" class="form-control mb-2">
+    <button (click)="addClient()" class="btn btn-success">Ajouter</button>
+  </div>
+
+  <!-- Tableau des clients -->
+  <table class="table table-striped" *ngIf="clients.length > 0">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let client of clients">
+      <td>{{ client.id }}</td>
+      <td>{{ client.nom }}</td>
+      <td>{{ client.email }}</td>
+      <td>
+        <button (click)="editClient(client)" class="btn btn-warning me-2">Modifier</button>
+        <button (click)="deleteClient(client.id!)" class="btn btn-danger">Supprimer</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p *ngIf="clients.length === 0">Aucun client trouvé.</p>
+
+  <!-- Formulaire de modification -->
+  <div *ngIf="editingClient" class="mt-3">
+    <h3>Modifier Client</h3>
+    <input [(ngModel)]="editingClient.nom" placeholder="Nom" class="form-control mb-2">
+    <input [(ngModel)]="editingClient.email" placeholder="Email" class="form-control mb-2">
+    <button (click)="updateClient()" class="btn btn-primary me-2">Sauvegarder</button>
+    <button (click)="editingClient = null" class="btn btn-secondary">Annuler</button>
+  </div>
+</div>
